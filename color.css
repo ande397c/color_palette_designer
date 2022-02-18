@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+#interface {
+  background-color: rgb(196, 192, 192);
+  height: 400px;
+  padding-top: 1rem;
+}
+
+#top_interface {
+  display: flex;
+  justify-content: center;
+  gap: 13rem;
+}
+
+#color_input p {
+  margin: 0;
+}
+
+.color_divs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.color1,
+.color2,
+.color3,
+.color3,
+.color4,
+.color5 {
+  width: 160px;
+  height: 100px;
+  background-color: #333;
+  margin-top: 1rem;
+}
+
+#color_input {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.dropdown {
+  display: flex;
+  gap: 1rem;
+}
+
+input {
+  margin-top: -1rem;
+  border: none;
+  background: transparent;
+  height: 50px;
+  width: 50px;
+}
+
+.color_codes {
+  padding-left: 0.2rem;
+}
+
+.hex,
+.rgb,
+.hsl {
+  display: flex;
+  gap: 1rem;
+}

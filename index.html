@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="color.css" />
+    <title>Color Palette Designer</title>
+  </head>
+  <body>
+    <section id="interface">
+      <div id="top_interface">
+        <div class="dropdown">
+          <p>Choose color harmony</p>
+          <select name="harmonies" id="harmonies">
+            <option value="analogous">Analogous</option>
+            <option value="monochromatic">Monochromatic</option>
+            <option value="complementary">Complementary</option>
+            <option value="triad">Triad</option>
+            <option value="compound">Compound</option>
+            <option value="shades">Shades</option>
+          </select>
+        </div>
+
+        <div class="color">
+          <div id="color_input">
+            <p>Selected base color:</p>
+            <input type="color" />
+          </div>
+        </div>
+      </div>
+
+      <div class="color_divs">
+        <div class="color_palette1">
+          <div class="color1"></div>
+          <div class="color_codes">
+            <div class="hex">
+              <p>HEX:</p>
+              <p id="hex_value"></p>
+            </div>
+            <div class="rgb">
+              <p>RGB:</p>
+              <p id="rgb_value"></p>
+            </div>
+            <div class="hsl">
+              <p>HSL:</p>
+              <p id="hsl_value"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color_palette2">
+          <div class="color2"></div>
+          <div class="color_codes">
+            <div class="hex">
+              <p>HEX:</p>
+              <p id="hex_value"></p>
+            </div>
+            <div class="rgb">
+              <p>RGB:</p>
+              <p id="rgb_value"></p>
+            </div>
+            <div class="hsl">
+              <p>HSL:</p>
+              <p id="hsl_value"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color_palette3">
+          <div class="color3"></div>
+          <div class="color_codes">
+            <div class="hex">
+              <p>HEX:</p>
+              <p id="hex_value"></p>
+            </div>
+            <div class="rgb">
+              <p>RGB:</p>
+              <p id="rgb_value"></p>
+            </div>
+            <div class="hsl">
+              <p>HSL:</p>
+              <p id="hsl_value"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color_palette4">
+          <div class="color4"></div>
+          <div class="color_codes">
+            <div class="hex">
+              <p>HEX:</p>
+              <p id="hex_value"></p>
+            </div>
+            <div class="rgb">
+              <p>RGB:</p>
+              <p id="rgb_value"></p>
+            </div>
+            <div class="hsl">
+              <p>HSL:</p>
+              <p id="hsl_value"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color_palette5">
+          <div class="color5"></div>
+          <div class="color_codes">
+            <div class="hex">
+              <p>HEX:</p>
+              <p id="hex_value"></p>
+            </div>
+            <div class="rgb">
+              <p>RGB:</p>
+              <p id="rgb_value"></p>
+            </div>
+            <div class="hsl">
+              <p>HSL:</p>
+              <p id="hsl_value"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="color.js"></script>
+  </body>
+</html>
