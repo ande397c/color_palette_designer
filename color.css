@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  background-color: rgb(196, 192, 192);
 }
 
 h1 {
@@ -7,8 +8,7 @@ h1 {
 }
 
 #interface {
-  background-color: rgb(196, 192, 192);
-  height: 400px;
+  height: 500px;
   padding-top: 1rem;
 }
 
@@ -36,7 +36,7 @@ h1 {
 .color4,
 .color5 {
   width: 160px;
-  height: 100px;
+  height: 230px;
   background-color: #333;
   margin-top: 1rem;
 }
@@ -69,4 +69,9 @@ input {
 .hsl {
   display: flex;
   gap: 1rem;
+}
+
+#harmonies {
+  padding: 15px;
+  background-color: white;
 }
