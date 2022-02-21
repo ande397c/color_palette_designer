@@ -25,16 +25,11 @@ h1 {
 .color_divs {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 2.5rem;
   justify-content: center;
 }
 
-.color1,
-.color2,
-.color3,
-.color3,
-.color4,
-.color5 {
+.color-tile {
   width: 160px;
   height: 230px;
   background-color: #333;
@@ -60,18 +55,71 @@ input {
   width: 50px;
 }
 
-.color_codes {
-  padding-left: 0.2rem;
-}
-
-.hex,
+/* .hex,
 .rgb,
 .hsl {
   display: flex;
   gap: 1rem;
-}
+} */
 
 #harmonies {
   padding: 15px;
   background-color: white;
 }
+
+.color-palette-picker {
+  width: 80%;
+  margin: auto;
+}
+
+.user-iput-interface {
+  background-color: rgb(83, 83, 83);
+  margin: 3px;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+select#harmonies {
+  border: none;
+  width: 150px;
+}
+
+.user-iput-interface label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+  color: white;
+}
+
+.color-palette {
+  display: flex;
+  justify-content: space-between;
+}
+
+.color-tile {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  margin: 3px;
+}
+
+.color-display {
+  /* width: 100%; */
+  height: 100px;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.color-codes {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+/* .color-codes p:nth-child(even) {
+  text-indent: 1px;
+} */

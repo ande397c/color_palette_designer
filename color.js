@@ -1,110 +1,217 @@
 "use strict";
 
-window.addEventListener("load", setup);
+window.addEventListener("DOMContentLoaded", init);
 
-// let colorObject = {
-//   harmony,
-//   color,
-// };
+let allColors = [
+  {
+    hex: "#c0ffee",
+    rgb: "rgb0",
+    hsl: {
+      h: "",
+      s: "",
+      l: "",
+    },
+  },
+  {
+    hex: "#bada55",
+    rgb: "rgb1",
+    hsl: {
+      h: "",
+      s: "",
+      l: "",
+    },
+  },
+  {
+    hex: "#00ff00",
+    rgb: "rgb2",
+    hsl: {
+      h: "",
+      s: "",
+      l: "",
+    },
+  },
+  {
+    hex: "#ff0000",
+    rgb: "rgb3",
+    hsl: {
+      h: "",
+      s: "",
+      l: "",
+    },
+  },
+  {
+    hex: "hex4",
+    rgb: "rgb4",
+    hsl: {
+      h: "",
+      s: "",
+      l: "",
+    },
+  },
+];
 
-function setup() {
-  console.log("setup");
+const Color = {
+  hex: "",
+  rgb: {
+    r: "",
+    g: "",
+    b: "",
+  },
+  hsl: {
+    h: "",
+    s: "",
+    l: "",
+  },
+};
 
-  document.querySelector("#color_selector").addEventListener("input", checkDropdownOption);
-
-  convertColors();
+function init() {
+  console.log("Ready");
+  showColor();
+  document.querySelector("#color_selector").addEventListener("input", showColor);
+  document.querySelector("#harmonies").addEventListener("input", showColor);
 }
 
-// Handles the conversions
-function convertColors() {
-  // RGB
-  let rgbVal = getRgb();
-
-  // HEX
-  convertRgbToHex(rgbVal);
-
-  // HSL
-  convertRgbToHSL(rgbVal);
+function generateRandomColor() {
+  /////////////// To Do ///////////////////
 }
 
-// Checks which option has been chosen from dropdown menu
-function checkDropdownOption() {
-  const dropdownInput = document.querySelector("#harmonies").value;
-
-  console.log(dropdownInput);
-
-  return dropdownInput;
+function getColor() {
+  let colorInput = document.querySelector("#color_selector");
+  // console.log("Get color works");
+  return colorInput.value;
 }
 
-// ......       Show colors
+function getHarmony() {
+  let harmony = document.querySelector("#harmonies");
+  // console.log("Get harmony works");
+  return harmony.value;
+}
 
-function showAnalogous() {}
+function showColor() {
+  // Get harmony
+  let harmonyValue = getHarmony();
+  // console.log(harmonyValue);
 
-function showMonochromatic() {}
+  // Get the color input
+  let hexString = getColor();
+  let rgbValue = hexToRGB(hexString);
+  let hslValue = rgbToHSL(rgbValue);
+  // console.log(hslValue);
 
-function showMonochromatic() {}
+  // Alter values of the array based on harmony
+  paletteGenerator(harmonyValue, hslValue);
 
-function showComplementary() {}
+  // console.log(allColors);
 
-function showTriad() {}
+  let allColorTiles = document.querySelectorAll(".color-tile");
+  allColorTiles.forEach((element, index) => {
+    testShowFunction(element, index);
+  });
+}
 
-function showCompound() {}
+function testShowFunction(htmlElem, index) {
+  // console.log(htmlElem);
+  // console.log(index);
+  let colorDisplay = htmlElem.querySelector(".color-display");
+  // console.log(colorDisplay);
+  colorDisplay.style.backgroundColor = allColors[index].hex;
+  let colorCodesElem = htmlElem.querySelector(".color-codes");
+  // console.log(colorCodesElem);
+  colorCodesElem.querySelector(".hex_code").innerHTML = allColors[index].hex;
+  colorCodesElem.querySelector(".rgb_code").innerHTML = showRBGColor(allColors[index].rgb);
+  let hslTextElem = colorCodesElem.querySelector(".hsl_code");
+  showHSLColor(hslTextElem, index);
+}
 
-function showShades() {}
+function displayColor(hexValue) {
+  document.querySelector("#color2 .color-display").style.backgroundColor = hexValue;
+}
 
-// ......       Display colors
+function showHexColor(hexValue) {
+  document.querySelector("#color2 .hex_code").innerHTML = hexValue;
+}
 
-function displayColors() {}
+function showRBGColor(rgbObject) {
+  return `${rgbObject.r}, ${rgbObject.g}, ${rgbObject.b}`;
+}
 
-// Generate and return random rgb values
-function getRgb() {
-  let rgb = {
-    r: Math.floor(Math.random() * 255),
-    g: Math.floor(Math.random() * 255),
-    b: Math.floor(Math.random() * 255),
+function showHSLColor(textElem, index) {
+  // console.log(textElem);
+
+  let h = allColors[index].hsl.h.toFixed().toString();
+  let s = allColors[index].hsl.s.toFixed().toString();
+  let l = allColors[index].hsl.l.toFixed().toString();
+
+  textElem.innerHTML = `${h}. ${s}%, ${l}%`;
+}
+
+function hexToRGB(hexString) {
+  hexString.replaceAll(" ", "");
+
+  // console.log(hexString);
+  let r = parseInt(hexString.substring(1, 3), 16);
+  let g = parseInt(hexString.substring(3, 5), 16);
+  let b = parseInt(hexString.substring(5), 16);
+
+  return {
+    r,
+    g,
+    b,
   };
-
-  console.log(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-
-  return rgb;
 }
 
-/// Convert from rgb to hex
-function convertRgbToHex(rgbVal) {
-  let r = rgbVal.r.toString(16);
-  let g = rgbVal.g.toString(16);
-  let b = rgbVal.b.toString(16);
+function rgbToCssColor(rgbObject) {
+  let r = rgbObject.r;
+  let g = rgbObject.g;
+  let b = rgbObject.b;
 
-  let hexCode = "#" + r + g + b;
-
-  console.log(hexCode);
-
-  return hexCode;
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
-// Convert from rgb to hsl
-function convertRgbToHSL(rgb) {
-  let R = rgb.r;
-  let G = rgb.g;
-  let B = rgb.b;
+function rgbToHEX(rgbObject) {
+  let redHexValue = rgbObject.r.toString(16);
 
-  R /= 255;
-  G /= 255;
-  B /= 255;
+  if (redHexValue.length == 1) {
+    redHexValue = "0" + redHexValue;
+  }
+
+  let greenHexValue = rgbObject.g.toString(16);
+  if (greenHexValue.length == 1) {
+    greenHexValue = "0" + greenHexValue;
+  }
+
+  let blueHexValue = rgbObject.b.toString(16);
+  if (blueHexValue.length == 1) {
+    blueHexValue = "0" + blueHexValue;
+  }
+
+  let hexString = "#" + redHexValue + greenHexValue + blueHexValue;
+
+  return hexString;
+}
+
+function rgbToHSL(rgbValue) {
+  let r = rgbValue.r;
+  let g = rgbValue.g;
+  let b = rgbValue.b;
+
+  r /= 255;
+  g /= 255;
+  b /= 255;
 
   let h, s, l;
 
-  const min = Math.min(R, G, B);
-  const max = Math.max(R, G, B);
+  const min = Math.min(r, g, b);
+  const max = Math.max(r, g, b);
 
   if (max === min) {
     h = 0;
-  } else if (max === R) {
-    h = 60 * (0 + (G - B) / (max - min));
-  } else if (max === G) {
-    h = 60 * (2 + (B - R) / (max - min));
-  } else if (max === B) {
-    h = 60 * (4 + (R - G) / (max - min));
+  } else if (max === r) {
+    h = 60 * (0 + (g - b) / (max - min));
+  } else if (max === g) {
+    h = 60 * (2 + (b - r) / (max - min));
+  } else if (max === b) {
+    h = 60 * (4 + (r - g) / (max - min));
   }
 
   if (h < 0) {
@@ -122,15 +229,230 @@ function convertRgbToHSL(rgb) {
   s *= 100;
   l *= 100;
 
-  h = h.toFixed(0);
-  s = s.toFixed(0);
-  l = l.toFixed(0);
-
-  console.log(h + "%, " + s + "%, " + l + "%");
-
+  // console.log("hsl(%f,%f%,%f%)", h, s, l); // just for testing
   return {
     h,
     s,
     l,
   };
+}
+
+function hslToRGB(hslObject) {
+  let h = hslObject.h;
+  let s = hslObject.s / 100;
+  let l = hslObject.l / 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s,
+    x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+    m = l - c / 2,
+    r = 0,
+    g = 0,
+    b = 0;
+  if (0 <= h && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (240 <= h && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (300 <= h && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  // console.log("hslToRGB works");
+  return {
+    r,
+    g,
+    b,
+  };
+}
+
+function paletteGenerator(harmony, hslValue) {
+  // console.log(allColors);
+
+  if (harmony == "analogous") {
+    generateAnalogous(hslValue);
+  } else if (harmony == "monochromatic") {
+    generateMonochromatic(hslValue);
+  } else if (harmony == "triad") {
+    generateTriad(hslValue);
+  } else if (harmony == "complementary") {
+    generateComplementary(hslValue);
+  } else if (harmony == "compound") {
+    generateCompound(hslValue);
+  } else {
+    generateShades(hslValue);
+  }
+
+  // console.log(hslToRGB(allColors[0].hsl));
+  for (let i = 0; i < 5; i++) {
+    let rgbObject = hslToRGB(allColors[i].hsl);
+    allColors[i].rgb = rgbObject;
+    allColors[i].hex = rgbToHEX(rgbObject);
+  }
+}
+
+function generateAnalogous(hslValue) {
+  // console.log(hslValue);
+  // console.log(allColors);
+  allColors[0].hsl.h = limit(hslValue.h + 20, 360);
+  allColors[0].hsl.s = hslValue.s;
+  allColors[0].hsl.l = hslValue.l;
+
+  allColors[1].hsl.h = limit(hslValue.h - 15, 360);
+  allColors[1].hsl.s = hslValue.s;
+  allColors[1].hsl.l = hslValue.l;
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = limit(hslValue.h + 40, 360);
+  allColors[3].hsl.s = hslValue.s;
+  allColors[3].hsl.l = hslValue.l;
+
+  allColors[4].hsl.h = limit(hslValue.h - 30, 360);
+  allColors[4].hsl.s = hslValue.s;
+  allColors[4].hsl.l = hslValue.l;
+}
+
+function generateMonochromatic(hslValue) {
+  allColors[0].hsl.h = hslValue.h;
+  allColors[0].hsl.s = clamp(hslValue.s + 20);
+  allColors[0].hsl.l = clamp(hslValue.l + 15);
+
+  allColors[1].hsl.h = hslValue.h;
+  allColors[1].hsl.s = clamp(hslValue.s + 10);
+  allColors[1].hsl.l = clamp(hslValue.l + 5);
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = hslValue.h;
+  allColors[3].hsl.s = clamp(hslValue.s + 5);
+  allColors[3].hsl.l = clamp(hslValue.l - 10);
+
+  allColors[4].hsl.h = hslValue.h;
+  allColors[4].hsl.s = clamp(hslValue.s - 15);
+  allColors[4].hsl.l = clamp(hslValue.l - 15);
+}
+
+function generateTriad(hslValue) {
+  allColors[0].hsl.h = limit(hslValue.h + 240, 360);
+  allColors[0].hsl.s = clamp(hslValue.s - 5);
+  allColors[0].hsl.l = hslValue.l;
+
+  allColors[1].hsl.h = limit(hslValue.h + 15, 360);
+  allColors[1].hsl.s = hslValue.s;
+  allColors[1].hsl.l = hslValue.l;
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = limit(hslValue.h + 120, 360);
+  allColors[3].hsl.s = hslValue.s;
+  allColors[3].hsl.l = clamp(hslValue.l - 5);
+
+  allColors[4].hsl.h = limit(hslValue.h + 130, 360);
+  allColors[4].hsl.s = clamp(hslValue.s + 30);
+  allColors[4].hsl.l = clamp(hslValue.l + 10);
+}
+
+function generateComplementary(hslValue) {
+  allColors[0].hsl.h = limit(hslValue.h + 20, 360);
+  allColors[0].hsl.s = hslValue.s;
+  allColors[0].hsl.l = clamp(hslValue.l - 5);
+
+  allColors[1].hsl.h = limit(hslValue.h - 15, 360);
+  allColors[1].hsl.s = clamp(hslValue.s - 10);
+  allColors[1].hsl.l = hslValue.l;
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = limit(hslValue.h + 170, 360);
+  allColors[3].hsl.s = clamp(hslValue.s - 30);
+  allColors[3].hsl.l = hslValue.l;
+
+  allColors[4].hsl.h = limit(hslValue.h + 180, 360);
+  allColors[4].hsl.s = hslValue.s;
+  allColors[4].hsl.l = hslValue.l;
+}
+
+function generateCompound(hslValue) {
+  allColors[0].hsl.h = limit(hslValue.h + 20, 360);
+  allColors[0].hsl.s = clamp(hslValue.s - 5);
+  allColors[0].hsl.l = clamp(hslValue.l + 5);
+
+  allColors[1].hsl.h = limit(hslValue.h + 170, 360);
+  allColors[1].hsl.s = clamp(hslValue.s - 30);
+  allColors[1].hsl.l = hslValue.l;
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = limit(hslValue.h - 10, 360);
+  allColors[3].hsl.s = clamp(hslValue.s - 30);
+  allColors[3].hsl.l = hslValue.l;
+
+  allColors[4].hsl.h = limit(hslValue.h + 180, 360);
+  allColors[4].hsl.s = hslValue.s;
+  allColors[4].hsl.l = hslValue.l;
+}
+
+function generateShades(hslValue) {
+  allColors[0].hsl.h = hslValue.h;
+  allColors[0].hsl.s = hslValue.s;
+  allColors[0].hsl.l = clamp(hslValue.l + 10);
+
+  allColors[1].hsl.h = hslValue.h;
+  allColors[1].hsl.s = hslValue.s;
+  allColors[1].hsl.l = clamp(hslValue.l + 20);
+
+  allColors[2].hsl.h = hslValue.h;
+  allColors[2].hsl.s = hslValue.s;
+  allColors[2].hsl.l = hslValue.l;
+
+  allColors[3].hsl.h = hslValue.h;
+  allColors[3].hsl.s = hslValue.s;
+  allColors[3].hsl.l = clamp(hslValue.l - 5);
+
+  allColors[4].hsl.h = hslValue.h;
+  allColors[4].hsl.s = hslValue.s;
+  allColors[4].hsl.l = clamp(hslValue.l - 15);
+}
+
+function clamp(value, max = 100, min = 0) {
+  if (value < min) {
+    value = min;
+  } else if (value > max) {
+    value = max;
+  }
+  return value;
+}
+
+function limit(value, max) {
+  return (max + value) % max;
 }
